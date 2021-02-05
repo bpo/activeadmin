@@ -29,7 +29,7 @@ module ActiveAdmin
             text_node(active_admin_namespace.head)
 
             active_admin_application.stylesheets.each do |style, options|
-              stylesheet_tag = active_admin_namespace.use_webpacker ? stylesheet_pack_tag(style, **options) : stylesheet_link_tag(style, **options)
+              stylesheet_tag = active_admin_namespace.use_webpacker ? stylesheet_pack_tag(style.chomp(".css"), **options) : stylesheet_link_tag(style, **options)
               text_node(stylesheet_tag.html_safe) if stylesheet_tag
             end
 
@@ -38,7 +38,7 @@ module ActiveAdmin
             end
 
             active_admin_application.javascripts.each do |path|
-              javascript_tag = active_admin_namespace.use_webpacker ? javascript_pack_tag(path) : javascript_include_tag(path)
+              javascript_tag = active_admin_namespace.use_webpacker ? javascript_pack_tag(path.chomp(".js")) : javascript_include_tag(path)
               text_node(javascript_tag)
             end
 
